@@ -9,8 +9,13 @@ module Floramotors
   class F1SalesCustom::Hooks::Lead 
 
     def self.switch_source(lead)
+
       if lead.product.name.downcase.include?('pcd')
+
         return 'Facebook - PCD'
+      elsif lead.product.name.downcase.include?('consorcio')
+
+        return 'Facebook - Consorcio'
       end
 
       return lead.source.name
