@@ -6,7 +6,7 @@ require "f1sales_helpers"
 
 module Floramotors
   class Error < StandardError; end
-  class F1SalesCustom::Hooks::Lead 
+  class F1SalesCustom::Hooks::Lead
 
     def self.switch_source(lead)
 
@@ -16,6 +16,8 @@ module Floramotors
       elsif lead.product.name.downcase.include?('consorcio')
 
         return 'Facebook - Consorcio'
+      elsif lead.product.name.downcase.include?('taxi') || lead.message.downcase.include?('taxi')
+        return "#{lead.source.name} - Taxista"
       end
 
       return lead.source.name
