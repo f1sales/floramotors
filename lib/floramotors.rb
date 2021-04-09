@@ -16,7 +16,7 @@ module Floramotors
       elsif product_name.downcase.include?('consorcio')
 
         return 'Facebook - Consorcio'
-      elsif product_name.downcase.include?('taxi') || lead.message.downcase.include?('taxi')
+      elsif product_name.downcase.include?('taxi') || (lead.message || '').downcase.include?('taxi')
         return "#{lead.source.name} - Taxista"
       end
 
