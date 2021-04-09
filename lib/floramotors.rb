@@ -10,13 +10,13 @@ module Floramotors
 
     def self.switch_source(lead)
 
-      if lead.product.name.downcase.include?('pcd')
-
+      product_name = lead.product ? lead.product.name : ''
+      if product_name.downcase.include?('pcd')
         return 'Facebook - PCD'
-      elsif lead.product.name.downcase.include?('consorcio')
+      elsif product_name.downcase.include?('consorcio')
 
         return 'Facebook - Consorcio'
-      elsif lead.product.name.downcase.include?('taxi') || lead.message.downcase.include?('taxi')
+      elsif product_name.downcase.include?('taxi') || lead.message.downcase.include?('taxi')
         return "#{lead.source.name} - Taxista"
       end
 
