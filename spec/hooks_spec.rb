@@ -119,7 +119,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
     end
 
     it 'returns source name' do
-      expect(described_class.switch_source(lead)).to eq('Facebook - Consorcio')
+      expect(described_class.switch_source(lead)).to eq('Consorcio')
     end
   end
 
@@ -158,7 +158,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
     end
 
     it 'returns source name' do
-      expect(described_class.switch_source(lead)).to eq('Facebook - PCD')
+      expect(described_class.switch_source(lead)).to eq('PCD')
     end
   end
 end

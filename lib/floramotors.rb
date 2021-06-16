@@ -12,10 +12,10 @@ module Floramotors
 
       product_name = lead.product ? lead.product.name : ''
       if product_name.downcase.include?('pcd')
-        return 'Facebook - PCD'
+        return 'PCD'
       elsif product_name.downcase.include?('consorcio')
 
-        return 'Facebook - Consorcio'
+        return 'Consorcio'
       elsif product_name.downcase.include?('taxi') || (lead.message || '').downcase.include?('taxi')
         return "#{lead.source.name} - Taxista"
       end
