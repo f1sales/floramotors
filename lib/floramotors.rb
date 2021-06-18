@@ -18,6 +18,8 @@ module Floramotors
         return 'Consorcio'
       elsif product_name.downcase.include?('taxi') || (lead.message || '').downcase.include?('taxi')
         return "#{lead.source.name} - Taxista"
+      elsif product_name == 'Revisão - Aniversário Honda Flora -2021'
+          return "#{lead.source.name} - Revisão - Aniversário Honda Flora - 2021"
       end
 
       return lead.source.name
