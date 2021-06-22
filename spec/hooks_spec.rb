@@ -161,4 +161,43 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       expect(described_class.switch_source(lead)).to eq('PCD')
     end
   end
+
+  context 'when product contains Revisão - Aniversário Honda Flora -2021' do
+
+    let(:source) do
+      source = OpenStruct.new
+      source.name = 'Facebook - Honda Flora'
+      source
+    end
+
+    let(:customer) do
+      customer = OpenStruct.new
+      customer.name = 'Marcio'
+      customer.phone = '1198788899'
+      customer.email = 'marcio@f1sales.com.br'
+
+      customer
+    end
+
+    let(:product) do
+      product = OpenStruct.new
+      product.name = 'Revisão - Aniversário Honda Flora -2021'
+
+      product
+    end
+
+    let(:lead) do
+      lead = OpenStruct.new
+      lead.message = 'receber_contato_via:: e-mail'
+      lead.source = source
+      lead.customer = customer
+      lead.product = product
+
+      lead
+    end
+
+    it 'returns source name' do
+      expect(described_class.switch_source(lead)).to eq('Facebook - Honda Flora - Revisão - Aniversário Honda Flora - 2021')
+    end
+  end
 end
