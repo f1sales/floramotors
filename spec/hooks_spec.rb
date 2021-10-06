@@ -1,44 +1,40 @@
 require File.expand_path '../spec_helper.rb', __FILE__
 require 'ostruct'
-require "f1sales_custom/hooks"
+require 'f1sales_custom/hooks'
 
 RSpec.describe F1SalesCustom::Hooks::Lead do
+  let(:customer) do
+    customer = OpenStruct.new
+    customer.name = 'Marcio'
+    customer.phone = '1198788899'
+    customer.email = 'marcio@f1sales.com.br'
+
+    customer
+  end
+
+  let(:lead) do
+    lead = OpenStruct.new
+    lead.source = source
+    lead.customer = customer
+    lead.product = product
+
+    lead
+  end
 
   context 'when has some taxi info' do
     let(:source_name) { 'myHonda' }
+    let(:source) do
+      source = OpenStruct.new
+      source.name = source_name
+      source
+    end
 
     context 'when product contains taxi' do
-
-      let(:source) do
-        source = OpenStruct.new
-        source.name = source_name
-        source
-      end
-
-      let(:customer) do
-        customer = OpenStruct.new
-        customer.name = 'Marcio'
-        customer.phone = '1198788899'
-        customer.email = 'marcio@f1sales.com.br'
-
-        customer
-      end
-
       let(:product) do
         product = OpenStruct.new
         product.name = 'Taxista -'
 
         product
-      end
-
-      let(:lead) do
-        lead = OpenStruct.new
-        lead.message = 'como_deseja_ser_contatado?: e-mail: escolha_a_unidade_savol_kia: savol_kia_santo_andré'
-        lead.source = source
-        lead.customer = customer
-        lead.product = product
-
-        lead
       end
 
       it 'returns source name' do
@@ -47,21 +43,6 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
     end
 
     context 'when message contains taxi' do
-      let(:source) do
-        source = OpenStruct.new
-        source.name = source_name
-        source
-      end
-
-      let(:customer) do
-        customer = OpenStruct.new
-        customer.name = 'Marcio'
-        customer.phone = '1198788899'
-        customer.email = 'marcio@f1sales.com.br'
-
-        customer
-      end
-
       let(:product) do
         product = OpenStruct.new
         product.name = 'CRV -'
@@ -69,15 +50,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
         product
       end
 
-      let(:lead) do
-        lead = OpenStruct.new
-        lead.message = 'como_deseja_ser_contatado?: e-mail: escolha_a_unidade_savol_kia: savol_kia_santo_andré quero Taxista'
-        lead.source = source
-        lead.customer = customer
-        lead.product = product
-
-        lead
-      end
+      before { lead.message = 'como_deseja_ser_contatado?: e-mail: escolha_a_unidade_savol_kia: savol_kia_santo_andré quero Taxista' }
 
       it 'returns source name' do
         expect(described_class.switch_source(lead)).to eq('myHonda - Taxista')
@@ -85,37 +58,18 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
     end
   end
 
+  let(:source) do
+    source = OpenStruct.new
+    source.name = 'Facebook - Honda Flora'
+    source
+  end
+
   context 'when product cotains CONSORCIO' do
-    let(:source) do
-      source = OpenStruct.new
-      source.name = 'Facebook - Honda Flora'
-      source
-    end
-
-    let(:customer) do
-      customer = OpenStruct.new
-      customer.name = 'Marcio'
-      customer.phone = '1198788899'
-      customer.email = 'marcio@f1sales.com.br'
-
-      customer
-    end
-
     let(:product) do
       product = OpenStruct.new
       product.name = 'CONSORCIO HONDA'
 
       product
-    end
-
-    let(:lead) do
-      lead = OpenStruct.new
-      lead.message = 'como_deseja_ser_contatado?: e-mail: escolha_a_unidade_savol_kia: savol_kia_santo_andré'
-      lead.source = source
-      lead.customer = customer
-      lead.product = product
-
-      lead
     end
 
     it 'returns source name' do
@@ -124,37 +78,11 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
   end
 
   context 'when product cotains PCD' do
-
-    let(:source) do
-      source = OpenStruct.new
-      source.name = 'Facebook - Honda Flora'
-      source
-    end
-
-    let(:customer) do
-      customer = OpenStruct.new
-      customer.name = 'Marcio'
-      customer.phone = '1198788899'
-      customer.email = 'marcio@f1sales.com.br'
-
-      customer
-    end
-
     let(:product) do
       product = OpenStruct.new
       product.name = 'PcD FIT ABRIL 20'
 
       product
-    end
-
-    let(:lead) do
-      lead = OpenStruct.new
-      lead.message = 'como_deseja_ser_contatado?: e-mail: escolha_a_unidade_savol_kia: savol_kia_santo_andré'
-      lead.source = source
-      lead.customer = customer
-      lead.product = product
-
-      lead
     end
 
     it 'returns source name' do
@@ -163,22 +91,6 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
   end
 
   context 'when product contains Revisão - Aniversário Honda Flora -2021' do
-
-    let(:source) do
-      source = OpenStruct.new
-      source.name = 'Facebook - Honda Flora'
-      source
-    end
-
-    let(:customer) do
-      customer = OpenStruct.new
-      customer.name = 'Marcio'
-      customer.phone = '1198788899'
-      customer.email = 'marcio@f1sales.com.br'
-
-      customer
-    end
-
     let(:product) do
       product = OpenStruct.new
       product.name = 'Revisão - Aniversário Honda Flora -2021'
@@ -186,18 +98,21 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       product
     end
 
-    let(:lead) do
-      lead = OpenStruct.new
-      lead.message = 'receber_contato_via:: e-mail'
-      lead.source = source
-      lead.customer = customer
-      lead.product = product
+    it 'returns source name' do
+      expect(described_class.switch_source(lead)).to eq('Facebook - Honda Flora - Revisão - Aniversário Honda Flora - 2021')
+    end
+  end
 
-      lead
+  context 'when product name is Isenções Outubro 2021' do
+    let(:product) do
+      product = OpenStruct.new
+      product.name = 'Isenções Outubro 2021'
+
+      product
     end
 
     it 'returns source name' do
-      expect(described_class.switch_source(lead)).to eq('Facebook - Honda Flora - Revisão - Aniversário Honda Flora - 2021')
+      expect(described_class.switch_source(lead)).to eq('Facebook - Honda Flora - Isenções Outubro 2021')
     end
   end
 end
