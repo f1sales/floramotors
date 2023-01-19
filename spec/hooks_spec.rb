@@ -96,4 +96,14 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       expect(described_class.switch_source(lead)).to eq('Facebook - Honda Flora - Isenções Outubro 2021')
     end
   end
+
+  context 'when product name is Honda New City 84 meses' do
+    before do
+      product.name = 'Honda New City 84 meses'
+    end
+
+    it 'returns source name' do
+      expect(described_class.switch_source(lead)).to eq('Facebook - Honda Flora - Consórcio')
+    end
+  end
 end

@@ -17,6 +17,8 @@ module Floramotors
         'PCD'
       elsif product_name_down['consorcio']
         'Consorcio'
+      elsif product_name_down['Honda New City 84 meses']
+        "#{source_name} - Consorcio"
       elsif product_name_down['taxi'] || (lead.message || '').downcase['taxi']
         "#{source_name} - Taxista"
       elsif product_name == 'Revisão - Aniversário Honda Flora -2021'
