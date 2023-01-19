@@ -1,4 +1,4 @@
-require File.expand_path '../spec_helper.rb', __FILE__
+require File.expand_path 'spec_helper.rb', __dir__
 require 'ostruct'
 require 'f1sales_custom/hooks'
 
@@ -29,7 +29,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
 
   let(:product) do
     product = OpenStruct.new
-    product.name = 'Taxista -'
+    product.name = nil
 
     product
   end
@@ -40,6 +40,8 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
     end
 
     context 'when product contains taxi' do
+      before { product.name = 'Taxista -' }
+
       it 'returns source name' do
         expect(described_class.switch_source(lead)).to eq('myHonda - Taxista')
       end
@@ -104,6 +106,12 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
 
     it 'returns source name' do
       expect(described_class.switch_source(lead)).to eq('Facebook - Honda Flora - Consórcio')
+    end
+  end
+
+  context 'when is a regular lead' do
+    it 'returns source name' do
+      expect(described_class.switch_source(lead)).to eq('Facebook - Honda Flora')
     end
   end
 end

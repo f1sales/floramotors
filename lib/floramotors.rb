@@ -1,8 +1,7 @@
-require "floramotors/version"
-
-require "f1sales_custom/source"
-require "f1sales_custom/hooks"
-require "f1sales_helpers"
+require 'floramotors/version'
+require 'f1sales_custom/source'
+require 'f1sales_custom/hooks'
+require 'f1sales_helpers'
 
 module Floramotors
   class Error < StandardError; end
