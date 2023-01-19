@@ -8,7 +8,7 @@ module Floramotors
 
   class F1SalesCustom::Hooks::Lead
     def self.switch_source(lead)
-      product_name = lead.product ? lead.product.name : ''
+      product_name = lead.product&.name ? lead.product.name : ''
       product_name_down = product_name.downcase
       source_name = lead.source ? lead.source.name : ''
 
@@ -16,8 +16,8 @@ module Floramotors
         'PCD'
       elsif product_name_down['consorcio']
         'Consorcio'
-      elsif product_name_down['Honda New City 84 meses']
-        "#{source_name} - Consorcio"
+      elsif product_name_down['honda new city 84 meses']
+        "#{source_name} - Consórcio"
       elsif product_name_down['taxi'] || (lead.message || '').downcase['taxi']
         "#{source_name} - Taxista"
       elsif product_name == 'Revisão - Aniversário Honda Flora -2021'
