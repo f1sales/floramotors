@@ -24,6 +24,8 @@ module Floramotors
         "#{source_name} - Revisão - Aniversário Honda Flora - 2021"
       elsif product_name == 'Isenções Outubro 2021'
         "#{source_name} - Isenções Outubro 2021"
+      elsif product_name_down['seminovos cooperada']
+        "#{source_name} - Heater"
       else
         lead.source.name
       end
