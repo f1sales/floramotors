@@ -12,7 +12,8 @@ module Floramotors
         @lead = lead
 
         return 'PCD' if product_name_down['pcd']
-        return "#{source_name} - Consórcio" if product_name_down['honda new city 84 meses'] || product_name_down['consorcio']
+        return "#{source_name} - Consórcio" if product_name_down['new city 84 meses'] || product_name_down['consorcio']
+        return "#{source_name} - Consórcio 2023" if product_name_down['rcio 2023']
         return "#{source_name} - Taxista" if product_name_down['taxi'] || lead_message['taxi']
         return "#{source_name} - Heater" if product_name_down['seminovos cooperada']
 

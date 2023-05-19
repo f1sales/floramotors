@@ -99,5 +99,13 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
         expect(switch_source).to eq('Facebook - Honda Flora - Heater')
       end
     end
+
+    context 'when product is Consórcio 2023' do
+      before { product.name = 'Consórcio 2023' }
+
+      it 'returns source name' do
+        expect(switch_source).to eq('Facebook - Honda Flora - Consórcio 2023')
+      end
+    end
   end
 end
