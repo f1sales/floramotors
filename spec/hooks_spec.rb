@@ -66,7 +66,7 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
       before { product.name = 'CONSORCIO HONDA' }
 
       it 'returns source name' do
-        expect(switch_source).to eq('Consorcio')
+        expect(switch_source).to eq('Facebook - Honda Flora - Consórcio')
       end
     end
 
@@ -75,22 +75,6 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
 
       it 'returns source name' do
         expect(switch_source).to eq('PCD')
-      end
-    end
-
-    context 'when product contains Revisão - Aniversário Honda Flora -2021' do
-      before { product.name = 'Revisão - Aniversário Honda Flora -2021' }
-
-      it 'returns source name' do
-        expect(switch_source).to eq('Facebook - Honda Flora - Revisão - Aniversário Honda Flora - 2021')
-      end
-    end
-
-    context 'when product name is Isenções Outubro 2021' do
-      before { product.name = 'Isenções Outubro 2021' }
-
-      it 'returns source name' do
-        expect(switch_source).to eq('Facebook - Honda Flora - Isenções Outubro 2021')
       end
     end
 
@@ -113,6 +97,14 @@ RSpec.describe F1SalesCustom::Hooks::Lead do
 
       it 'returns source name' do
         expect(switch_source).to eq('Facebook - Honda Flora - Heater')
+      end
+    end
+
+    context 'when product is Consórcio 2023' do
+      before { product.name = 'Consórcio 2023' }
+
+      it 'returns source name' do
+        expect(switch_source).to eq('Facebook - Honda Flora - Consórcio 2023')
       end
     end
   end
